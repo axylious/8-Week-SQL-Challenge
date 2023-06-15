@@ -110,10 +110,43 @@ product_name | total_sold
 --- | ---
 ramen | 8
 
-
 ***
 
 5. **Which item was the most popular for each customer?**
+```sql
+WITH ordered_table AS (SELECT 
+   s.customer_id,
+	m.product_name,
+   COUNT(*) order_count,
+   RANK() OVER(
+      PARTITION BY customer_id
+      ORDER BY COUNT(s.customer_id) DESC) ranking
+FROM menu m
+JOIN sales s
+   ON s.product_id = m.product_id
+GROUP BY s.customer_id, m.product_name
+ORDER BY customer_id)
+
+SELECT
+   customer_id,
+   product_name,
+   order_count
+FROM ordered_table
+WHERE ranking = 1;
+```
+
+**Answer:**
+customer_id | product_name | order_count
+--- | --- | ---
+A | ramen | 3
+B | curry | 2
+B | sushi | 2
+B | ramen | 2
+C | ramen | 3
+
+***
+
+
 6. **Which item was purchased first by the customer after they became a member?**
 7. **Which item was purchased just before the customer became a member?**
 8. **What is the total items and amount spent for each member before they became a member?**
