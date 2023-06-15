@@ -6,7 +6,7 @@
 
 * [Problem](https://github.com/axylious/8-Week-SQL-Challenge/tree/main/Case%20Study%20%231%20-%20Danny's%20Diner#problem)
 * [Entity Relationship Diagram](https://github.com/axylious/8-Week-SQL-Challenge/tree/main/Case%20Study%20%231%20-%20Danny's%20Diner#entity-relationship-diagram)
-* [Question and Solution](https://github.com/axylious/8-Week-SQL-Challenge/tree/main/Case%20Study%20%231%20-%20Danny's%20Diner#question-and-solution)
+* [Questions and Solutions](https://github.com/axylious/8-Week-SQL-Challenge/tree/main/Case%20Study%20%231%20-%20Danny's%20Diner#questions-and-solutions)
 
 Original Case Study [here](https://8weeksqlchallenge.com/case-study-1/)
 
@@ -48,7 +48,7 @@ C | 36
 2. **How many days has each customer visited the restaurant?**
 ```sql
 SELECT 
-	customer_id, 
+   customer_id, 
    COUNT(DISTINCT order_date) visit_count
 FROM sales
 GROUP BY customer_id
@@ -66,8 +66,8 @@ C | 2
 
 3. **What was the first item from the menu purchased by each customer?**
 ```sql
-WITH ordered_sales AS (SELECT 
-	customer_id,
+WITH ordered_sales AS (SELECT
+   customer_id,
    product_id,
    order_date,
    RANK() OVER(
