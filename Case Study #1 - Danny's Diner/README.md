@@ -71,7 +71,7 @@ WITH ordered_sales AS (SELECT
    product_id,
    order_date,
    RANK() OVER(
-		PARTITION BY customer_id 
+      PARTITION BY customer_id 
       ORDER BY order_date) purchase
 FROM sales)
 
