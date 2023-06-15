@@ -116,7 +116,7 @@ ramen | 8
 ```sql
 WITH ordered_table AS (SELECT 
    s.customer_id,
-	m.product_name,
+   m.product_name,
    COUNT(*) order_count,
    RANK() OVER(
       PARTITION BY customer_id
