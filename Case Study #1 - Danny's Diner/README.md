@@ -79,6 +79,7 @@ SELECT os.customer_id, m.product_name FROM ordered_sales os
 JOIN menu m
 	ON os.product_id = m.product_id
 WHERE purchase = 1
+GROUP BY os.customer_id, m.product_name;
 ```
 
 **Answer:**
@@ -88,10 +89,30 @@ A | sushi
 A | curry
 B | curry
 C | ramen
-C | ramen
 
 ***
+
 4. **What is the most purchased item on the menu and how many times was it purchased by all customers?**
+```sql
+SELECT
+   m.product_name,
+   COUNT(*) total_sold
+FROM menu m
+JOIN sales s
+   ON s.product_id = m.product_id
+GROUP BY m.product_name
+ORDER BY total_sold DESC
+LIMIT 1;
+```
+
+**Answer:**
+product_name | total_sold
+--- | ---
+ramen | 8
+
+
+***
+
 5. **Which item was the most popular for each customer?**
 6. **Which item was purchased first by the customer after they became a member?**
 7. **Which item was purchased just before the customer became a member?**
