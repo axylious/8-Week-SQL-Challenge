@@ -25,7 +25,7 @@ Danny wants to use the data he's collected from his customers at the diner to tr
 ## Question and Solution
 
 1. **What is the total amount each customer spent at the restaurant?**
-'''SQL
+```sql
 SELECT 
    s.customer_id, 
    SUM(price) tot_spent 
@@ -34,7 +34,7 @@ JOIN menu m
    ON s.product_id = m.product_id
 GROUP BY s.customer_id
 ORDER BY tot_spent DESC;
-'''
+```
 
 **Answer**
 customer_id | tot_spent
