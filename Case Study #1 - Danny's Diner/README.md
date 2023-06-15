@@ -36,15 +36,61 @@ GROUP BY s.customer_id
 ORDER BY tot_spent DESC;
 ```
 
-**Answer**
+**Answer:**
 customer_id | tot_spent
 --- | ---
 A | 76
 B | 74
 C | 36
 
+***
+
 2. **How many days has each customer visited the restaurant?**
+```sql
+SELECT 
+	customer_id, 
+   COUNT(DISTINCT order_date) visit_count
+FROM sales
+GROUP BY customer_id
+ORDER BY visit_count DESC;
+```
+
+**Answer:**
+customer_id | visit_count
+--- | ---
+B | 6
+A | 4
+C | 2
+
+***
+
 3. **What was the first item from the menu purchased by each customer?**
+```sql
+WITH ordered_sales AS (SELECT 
+	customer_id,
+   product_id,
+   order_date,
+   RANK() OVER(
+		PARTITION BY customer_id 
+      ORDER BY order_date) purchase
+FROM sales)
+
+SELECT os.customer_id, m.product_name FROM ordered_sales os
+JOIN menu m
+	ON os.product_id = m.product_id
+WHERE purchase = 1
+```
+
+**Answer:**
+customer_id | product_name
+--- | ---
+A | sushi
+A | curry
+B | curry
+C | ramen
+C | ramen
+
+***
 4. **What is the most purchased item on the menu and how many times was it purchased by all customers?**
 5. **Which item was the most popular for each customer?**
 6. **Which item was purchased first by the customer after they became a member?**
