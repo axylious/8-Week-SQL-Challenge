@@ -25,6 +25,24 @@ Danny wants to use the data he's collected from his customers at the diner to tr
 ## Question and Solution
 
 1. **What is the total amount each customer spent at the restaurant?**
+'''SQL
+SELECT 
+   s.customer_id, 
+   SUM(price) tot_spent 
+FROM sales s
+JOIN menu m
+   ON s.product_id = m.product_id
+GROUP BY s.customer_id
+ORDER BY tot_spent DESC;
+'''
+
+**Answer**
+customer_id | tot_spent
+--- | ---
+A | 76
+B | 74
+C | 36
+
 2. **How many days has each customer visited the restaurant?**
 3. **What was the first item from the menu purchased by each customer?**
 4. **What is the most purchased item on the menu and how many times was it purchased by all customers?**
