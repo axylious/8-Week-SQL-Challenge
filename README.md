@@ -8,4 +8,4 @@ It demonstrates my ability to work through various SQL challenges and proficienc
 
 Below are my solutions for the case study problems.  Click on a link to view the answers.
 
-* [Case Study #1: Danny's Diner](../8-Week-SQL-Challenge/Case%20Study%20%231%20-%20Danny's%20Diner/README.md)
+* [Case Study #1: Danny's Diner](https://github.com/axylious/8-Week-SQL-Challenge/tree/main/Case%20Study%20%231%20-%20Danny's%20Diner)
