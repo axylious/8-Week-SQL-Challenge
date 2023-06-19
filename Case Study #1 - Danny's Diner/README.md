@@ -209,7 +209,32 @@ B | curry
 ***
 
 8. **What is the total items and amount spent for each member before they became a member?**
+```sql
+WITH first_order AS (SELECT
+   m.customer_id,
+   s.product_id
+   FROM members m
+   JOIN sales s
+      ON s.customer_id = m.customer_id
+      AND s.order_date < m.join_date)
 
+SELECT
+   fo.customer_id,
+   COUNT(*) order_count,
+   SUM(m.price) tot_price
+FROM first_order fo
+JOIN menu m
+   ON fo.product_id = m.product_id
+GROUP BY fo.customer_id
+ORDER BY fo.customer_id;
+```
+
+**Answer:**
+customer_id | order_count | tot_price
+--- | --- | ---
+A | 2 | 25
+B | 3 | 40
+***
 
 9. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
 10. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
