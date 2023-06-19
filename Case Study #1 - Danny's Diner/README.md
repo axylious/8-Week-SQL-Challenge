@@ -270,8 +270,8 @@ WITH first_week AS (SELECT
 SELECT
    fw.customer_id,
    SUM(CASE WHEN fw.order_date BETWEEN fw.join_date AND fw.join_date + 6 THEN m.price*20
-   WHEN m.product_name = 'sushi' THEN m.price*20
-   ELSE m.price*10 END) points
+      WHEN m.product_name = 'sushi' THEN m.price*20
+      ELSE m.price*10 END) points
 FROM first_week fw
 JOIN menu m
    ON fw.product_id = m.product_id
