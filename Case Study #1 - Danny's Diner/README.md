@@ -180,15 +180,15 @@ A | ramen
 7. **Which item was purchased just before the customer became a member?**
 ```sql
 WITH first_order AS (SELECT 
-	m.customer_id,
+   m.customer_id,
    s.product_id,
-	RANK() OVER(
-		PARTITION BY m.customer_id
-		ORDER BY s.order_date) ranking
+   RANK() OVER(
+      PARTITION BY m.customer_id
+      ORDER BY s.order_date) ranking
 	FROM members m
-	JOIN sales s
+   JOIN sales s
       ON s.customer_id = m.customer_id
-		AND s.order_date < m.join_date)
+      AND s.order_date < m.join_date)
 
 SELECT
    fo.customer_id,
