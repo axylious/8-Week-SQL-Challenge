@@ -148,7 +148,68 @@ C | ramen | 3
 
 
 6. **Which item was purchased first by the customer after they became a member?**
+```sql
+WITH first_order AS (SELECT 
+	m.customer_id,
+   s.product_id,
+	RANK() OVER(
+		PARTITION BY m.customer_id
+		ORDER BY s.order_date) ranking
+	FROM members m
+	JOIN sales s
+      ON s.customer_id = m.customer_id
+		AND s.order_date > m.join_date)
+
+SELECT
+   fo.customer_id,
+   m.product_name 
+FROM first_order fo
+JOIN menu m
+   ON fo.product_id = m.product_id
+WHERE fo.ranking = 1;
+```
+
+**Answer:**
+customer_id | product_name
+--- | ---
+B | sushi
+A | ramen
+
+***
+
 7. **Which item was purchased just before the customer became a member?**
+```sql
+WITH first_order AS (SELECT 
+	m.customer_id,
+   s.product_id,
+	RANK() OVER(
+		PARTITION BY m.customer_id
+		ORDER BY s.order_date) ranking
+	FROM members m
+	JOIN sales s
+      ON s.customer_id = m.customer_id
+		AND s.order_date < m.join_date)
+
+SELECT
+   fo.customer_id,
+   m.product_name 
+FROM first_order fo
+JOIN menu m
+   ON fo.product_id = m.product_id
+WHERE fo.ranking = 1;
+```
+
+**Answer:**
+customer_id | product_name
+--- | ---
+A | sushi
+A | curry
+B | curry
+
+***
+
 8. **What is the total items and amount spent for each member before they became a member?**
+
+
 9. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
 10. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
